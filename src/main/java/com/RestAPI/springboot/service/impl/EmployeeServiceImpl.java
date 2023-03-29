@@ -1,9 +1,11 @@
 package com.RestAPI.springboot.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.RestAPI.springboot.exception.ResourceNotFoundException;
 import com.RestAPI.springboot.model.Employee;
 import com.RestAPI.springboot.repository.EmployeeRepository;
 import com.RestAPI.springboot.service.EmployeeService;
@@ -30,6 +32,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeRepository.findAll();
 	}
 
+	@Override 
+	public Employee getEmployeeById(long id){
+//		Optional <Employee> employee = employeeRepository.findById(id);
+//		if(employee.isPresent()) {
+//			return employee.get();
+//		}else {
+//			throw new ResourceNotFoundException("Employee", "Id", id);	
+//		}
+		return employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee", "Id", id));
+		}
+	
 	
 
 }
